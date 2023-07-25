@@ -523,6 +523,10 @@ impl Archetype {
     pub(crate) fn clear_entities(&mut self) {
         self.entities.clear();
     }
+
+    pub fn shrink_to_fit(&mut self) {
+        self.entities.shrink_to_fit();
+    }
 }
 
 /// An opaque generational id that changes every time the set of [`Archetypes`] changes.
@@ -736,6 +740,13 @@ impl Archetypes {
         for archetype in &mut self.archetypes {
             archetype.clear_entities();
         }
+    }
+
+    pub fn shrink_to_fit(&mut self) {
+        for archetype in &mut self.archetypes {
+            archetype.shrink_to_fit();
+        }
+        self.archetypes.shrink_to_fit();
     }
 }
 

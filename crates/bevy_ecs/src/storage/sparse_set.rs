@@ -102,6 +102,10 @@ impl<I: SparseSetIndex, V> SparseArray<I, V> {
         self.values.clear();
     }
 
+    pub fn shrink_to_fit(&mut self) {
+        self.values.shrink_to_fit();
+    }
+
     /// Converts the [`SparseArray`] into an immutable variant.
     pub(crate) fn into_immutable(self) -> ImmutableSparseArray<I, V> {
         ImmutableSparseArray {
@@ -143,6 +147,12 @@ impl ComponentSparseSet {
         self.dense.clear();
         self.entities.clear();
         self.sparse.clear();
+    }
+
+    pub fn shrink_to_fit(&mut self) {
+        self.dense.shrink_to_fit();
+        self.entities.shrink_to_fit();
+        self.sparse.shrink_to_fit();
     }
 
     /// Returns the number of component values in the sparse set.
@@ -523,6 +533,12 @@ impl<I: SparseSetIndex, V> SparseSet<I, V> {
         self.sparse.clear();
     }
 
+    pub fn shrink_to_fit(&mut self) {
+        self.dense.shrink_to_fit();
+        self.indices.shrink_to_fit();
+        self.sparse.shrink_to_fit();
+    }
+
     /// Converts the sparse set into its immutable variant.
     pub(crate) fn into_immutable(self) -> ImmutableSparseSet<I, V> {
         ImmutableSparseSet {
@@ -622,6 +638,13 @@ impl SparseSets {
         for set in self.sets.values_mut() {
             set.clear();
         }
+    }
+
+    pub fn shrink_to_fit(&mut self) {
+        for set in self.sets.values_mut() {
+            set.shrink_to_fit();
+        }
+        self.sets.shrink_to_fit();
     }
 
     pub(crate) fn check_change_ticks(&mut self, change_tick: Tick) {

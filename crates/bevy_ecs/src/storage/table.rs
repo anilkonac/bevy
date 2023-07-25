@@ -491,6 +491,12 @@ impl Column {
         self.changed_ticks.clear();
     }
 
+    pub fn shrink_to_fit(&mut self) {
+        self.data.shrink_to_fit();
+        self.added_ticks.shrink_to_fit();
+        self.changed_ticks.shrink_to_fit();
+    }
+
     #[inline]
     pub(crate) fn check_change_ticks(&mut self, change_tick: Tick) {
         for component_ticks in &mut self.added_ticks {
@@ -785,6 +791,11 @@ impl Table {
             column.clear();
         }
     }
+
+    pub fn shrink_to_fit(&mut self) {
+        self.entities.shrink_to_fit();
+        // self.columns.shrink_to_fit();
+    }
 }
 
 /// A collection of [`Table`] storages, indexed by [`TableId`]
@@ -884,6 +895,11 @@ impl Tables {
         for table in &mut self.tables {
             table.clear();
         }
+    }
+
+    pub fn shrink_to_fit(&mut self) {
+        self.tables.shrink_to_fit();
+        self.table_ids.shrink_to_fit();
     }
 
     pub(crate) fn check_change_ticks(&mut self, change_tick: Tick) {

@@ -1584,6 +1584,13 @@ impl World {
         self.entities.clear();
     }
 
+    pub fn shrink_to_fit_entities(&mut self) {
+        self.storages.tables.shrink_to_fit();
+        self.storages.sparse_sets.shrink_to_fit();
+        self.archetypes.shrink_to_fit();
+        self.entities.shrink_to_fit();
+    }
+
     /// Clears all resources in this [`World`].
     ///
     /// **Note:** Any resource fetch to this [World] will fail unless they are re-initialized,
