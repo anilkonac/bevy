@@ -524,7 +524,8 @@ impl Archetype {
         self.entities.clear();
     }
 
-    pub fn shrink_to_fit(&mut self) {
+    /// Shrinks the capacity of the entities of the archetype as much as possible.
+    pub fn shrink_to_fit_entities(&mut self) {
         self.entities.shrink_to_fit();
     }
 }
@@ -742,9 +743,10 @@ impl Archetypes {
         }
     }
 
+    /// Shrinks the capacity of the Archetypes as much as possible.
     pub fn shrink_to_fit(&mut self) {
         for archetype in &mut self.archetypes {
-            archetype.shrink_to_fit();
+            archetype.shrink_to_fit_entities();
         }
         self.archetypes.shrink_to_fit();
     }

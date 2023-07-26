@@ -491,8 +491,9 @@ impl Column {
         self.changed_ticks.clear();
     }
 
+    /// Shrinks the capacity of the column as much as possible.
     pub fn shrink_to_fit(&mut self) {
-        self.data.shrink_to_fit();
+        // self.data.shrink_to_fit();
         self.added_ticks.shrink_to_fit();
         self.changed_ticks.shrink_to_fit();
     }
@@ -792,8 +793,13 @@ impl Table {
         }
     }
 
+    /// Shrinks the capacity of the [`Table`] as much as possible.
     pub fn shrink_to_fit(&mut self) {
         self.entities.shrink_to_fit();
+        for column in self.columns.values_mut() {
+            // column.clear();
+            column.shrink_to_fit();
+        }
         // self.columns.shrink_to_fit();
     }
 }
@@ -897,8 +903,16 @@ impl Tables {
         }
     }
 
-    pub fn shrink_to_fit(&mut self) {
+    /// Shrinks the capacity of the tables as much as possible.
+    pub(crate) fn shrink_to_fit(&mut self) {
+        for table in self.tables.iter_mut() {
+            table.shrink_to_fit();
+        }
         self.tables.shrink_to_fit();
+
+        // for (comp_ids, _) in self.table_ids.iter_mut() {
+        //     comp_ids.shrink_to_fit();
+        // }
         self.table_ids.shrink_to_fit();
     }
 

@@ -1584,6 +1584,7 @@ impl World {
         self.entities.clear();
     }
 
+    /// Shrinks the capacity of the world's entities as much as possible.
     pub fn shrink_to_fit_entities(&mut self) {
         self.storages.tables.shrink_to_fit();
         self.storages.sparse_sets.shrink_to_fit();

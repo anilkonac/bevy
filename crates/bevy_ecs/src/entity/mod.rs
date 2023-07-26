@@ -594,6 +594,12 @@ impl Entities {
         self.len = 0;
     }
 
+    /// Shrinks the capacity of the Entity as much as possible.
+    pub fn shrink_to_fit(&mut self) {
+        self.meta.shrink_to_fit();
+        self.pending.shrink_to_fit();
+    }
+
     /// Returns the location of an [`Entity`].
     /// Note: for pending entities, returns `Some(EntityLocation::INVALID)`.
     #[inline]

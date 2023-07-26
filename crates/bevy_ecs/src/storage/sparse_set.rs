@@ -102,6 +102,7 @@ impl<I: SparseSetIndex, V> SparseArray<I, V> {
         self.values.clear();
     }
 
+    /// Shrinks the capacity of the SparseArray as much as possible.
     pub fn shrink_to_fit(&mut self) {
         self.values.shrink_to_fit();
     }
@@ -149,6 +150,7 @@ impl ComponentSparseSet {
         self.sparse.clear();
     }
 
+    /// Shrinks the capacity of the [`ComponentSparseSet`] as much as possible.
     pub fn shrink_to_fit(&mut self) {
         self.dense.shrink_to_fit();
         self.entities.shrink_to_fit();
@@ -533,6 +535,7 @@ impl<I: SparseSetIndex, V> SparseSet<I, V> {
         self.sparse.clear();
     }
 
+    /// Shrinks the capacity of the sparse set as much as possible.
     pub fn shrink_to_fit(&mut self) {
         self.dense.shrink_to_fit();
         self.indices.shrink_to_fit();
@@ -640,6 +643,7 @@ impl SparseSets {
         }
     }
 
+    /// Shrinks the capacity of the sparse sets as much as possible.
     pub fn shrink_to_fit(&mut self) {
         for set in self.sets.values_mut() {
             set.shrink_to_fit();
